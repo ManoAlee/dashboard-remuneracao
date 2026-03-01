@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { CommissionData, CommissionResult } from '../types/commission';
-import { DollarSign, Target, UserX, Calculator as CalcIcon } from 'lucide-react';
+import { DollarSign, Target, UserX, Calculator as CalcIcon, Save, Loader2, CheckCircle2 } from 'lucide-react';
+import { saveCommissionSimulation } from '../services/api';
 
 interface CalculatorProps {
     data: CommissionData;
@@ -9,6 +10,19 @@ interface CalculatorProps {
 }
 
 export const Calculator: React.FC<CalculatorProps> = ({ data, result, onUpdate }) => {
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveStatus, setSaveStatus] = useState<'idle' | 'success'>('idle');
+
+    const handleSave = async () => {
+        setIsSaving(true);
+        try {
+            await saveCommissionSimulation({ ...data, result });
+            setSaveStatus('success');
+            setTimeout(() => setSaveStatus('idle'), 3000);
+        } finally {
+            setIsSaving(false);
+        }
+    };
     return (
         <div className="hacker-box p-6 space-y-6">
             <div className="flex items-center gap-3 border-b border-border pb-4">
@@ -72,6 +86,24 @@ export const Calculator: React.FC<CalculatorProps> = ({ data, result, onUpdate }
                 <div className="text-slate-500">Descontos</div>
                 <div className="text-right text-red-500 font-mono">- R$ {result.deductions.toFixed(2)}</div>
             </div>
+
+            <button
+                onClick={handleSave}
+                disabled={isSaving || saveStatus === 'success'}
+                className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 font-bold uppercase tracking-widest transition-all ${saveStatus === 'success'
+                        ? 'bg-primary/20 text-primary border border-primary/30'
+                        : 'bg-white text-black hover:bg-primary hover:text-white'
+                    } disabled:opacity-50`}
+            >
+                {isSaving ? (
+                    <Loader2 size={20} className="animate-spin" />
+                ) : saveStatus === 'success' ? (
+                    <CheckCircle2 size={20} />
+                ) : (
+                    <Save size={20} />
+                )}
+                {isSaving ? 'Gravando...' : saveStatus === 'success' ? 'Gravado no SQL' : 'Salvar Simulação'}
+            </button>
         </div>
     );
 };

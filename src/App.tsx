@@ -1,15 +1,26 @@
+import { useState, useEffect } from 'react';
 import { Calculator } from './components/Calculator';
 import { PerformanceChart } from './components/PerformanceChart';
 import { NineBoxMatrix } from './components/NineBoxMatrix';
 import { useCommission } from './hooks/useCommission';
-import { LayoutDashboard, Bell, Settings, User } from 'lucide-react';
+import { LayoutDashboard, Bell, Settings, User, CheckCircle } from 'lucide-react';
 
 function App() {
+  const [notification, setNotification] = useState<string | null>(null);
   const { data, result, updateData } = useCommission({
     sales: 50000,
     goalAchievement: 100,
     absenteeism: 0
   });
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
+  const showFeedback = (msg: string) => setNotification(msg);
 
   // Simulando um contexto de autenticação (Auth Context)
   // Em produção, esses dados viriam de uma API (ex: /api/user/profile)
@@ -21,16 +32,44 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col md:flex-row">
+    <div className="min-h-screen bg-background flex flex-col md:flex-row relative">
+      {/* Toast Notification */}
+      {notification && (
+        <div className="fixed top-6 right-6 z-50 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="bg-primary border border-primary/20 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <CheckCircle size={18} />
+            <span className="font-bold uppercase tracking-tighter text-sm">{notification}</span>
+          </div>
+        </div>
+      )}
+
       {/* Sidebar Navigation */}
       <aside className="w-full md:w-20 bg-card border-r border-border flex flex-row md:flex-col items-center py-4 md:py-8 gap-6 md:gap-10 px-4 md:px-0">
         <div className="bg-primary/20 p-3 rounded-xl">
           <LayoutDashboard className="text-primary w-6 h-6" />
         </div>
         <div className="flex flex-row md:flex-col gap-6 items-center flex-1 justify-center">
-          <button className="text-slate-500 hover:text-white transition-colors" title="Perfil"><User size={24} /></button>
-          <button className="text-slate-500 hover:text-white transition-colors" title="Notificações"><Bell size={24} /></button>
-          <button className="text-slate-500 hover:text-white transition-colors" title="Configurações"><Settings size={24} /></button>
+          <button
+            onClick={() => showFeedback("Acessando Perfil...")}
+            className="text-slate-500 hover:text-white transition-colors"
+            title="Perfil"
+          >
+            <User size={24} />
+          </button>
+          <button
+            onClick={() => showFeedback("Verificando Notificações...")}
+            className="text-slate-500 hover:text-white transition-colors"
+            title="Notificações"
+          >
+            <Bell size={24} />
+          </button>
+          <button
+            onClick={() => showFeedback("Abrindo Configurações...")}
+            className="text-slate-500 hover:text-white transition-colors"
+            title="Configurações"
+          >
+            <Settings size={24} />
+          </button>
         </div>
         <div className="hidden md:block w-10 h-10 rounded-full bg-slate-800 border border-border mt-auto overflow-hidden">
           <img src={`https://ui-avatars.com/api/?name=${currentUser.avatarInitial}&background=10b981&color=fff`} alt="User Avatar" />
