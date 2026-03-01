@@ -218,6 +218,7 @@ function App() {
           </div>
         </header>
 
+        {renderView()}
       </main>
     </div>
   );
