@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# 🚀 Dashboard de Remuneração & Performance
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 
-Currently, two official plugins are available:
+Uma interface administrativa de alta performance desenvolvida para simulação de comissionamento e análise estratégica de talentos. Este projeto foi concebido com uma estética **Hacker/Clean**, focando em UX (User Experience) e velocidade de resposta.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 💎 Diferenciais do Projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Calculadora Reativa:** Simulação de ganhos variáveis com atualização instantânea de valores e bônus.
+- **Matriz Nine Box Dinâmica:** Visualização 3x3 para mapeamento de talentos (Potencial vs. Desempenho) com posicionamento automático de colaboradores.
+- **Gráficos de Performance:** Visualização comparativa entre dados Simulados vs. Realizados utilizando a biblioteca `Recharts`.
+- **Arquitetura Staff-Level:** Estrutura modular em TypeScript, preparada para escala e manutenção simplificada.
+- **Ready for Production:** Suporte nativo a Tailwind CSS v4 e PostCSS.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Stack Técnica
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Core:** React 18+ (Hooks, useMemo, Context-ready).
+- **Styling:** Tailwind CSS v4 (Design System em variáveis CSS).
+- **Ícones:** Lucide React.
+- **Gráficos:** Recharts (SVG Responsive).
+- **Build Tool:** Vite + TypeScript.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🔌 Integração com Dados Reais (Backend)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O sistema foi arquitetado para ser "Plug and Play". Para conectar à sua infraestrutura existente:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Configuração de Ambiente:**
+   Renomeie o arquivo `.env.example` para `.env` e defina sua URL base:
+   ```env
+   VITE_API_BASE_URL=https://sua-api.com/v1
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **Serviço de API:**
+   O arquivo `src/services/api.ts` já gerencia o fallback. Se a API estiver offline ou o `.env` não estiver configurado, o sistema utiliza dados simulados para garantir que o dashboard nunca pare.
+
+3. **Mapeamento:**
+   O dashboard espera arrays de objetos JSON para os gráficos e para a matriz.
+
+---
+
+## 🚀 Como Rodar
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/ManoAlee/dashboard-remuneracao.git
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🎨 Design System
+
+- **Background:** `#0a0a0c` (Slate Deep)
+- **Primary:** `#10b981` (Emerald)
+- **Secondary:** `#06b6d4` (Cyan)
+- **Glassmorphism:** Implementado com `backdrop-blur` e `border-white/10`.
+
+---
+
+**Desenvolvido por Alessandro Meneses** - *Especialista em Dashboards de Alta Fidelidade.*
