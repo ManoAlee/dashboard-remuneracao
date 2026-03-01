@@ -8,7 +8,6 @@ import { LayoutDashboard, Bell, Settings, User, CheckCircle } from 'lucide-react
 function App() {
   const [notification, setNotification] = useState<string | null>(null);
   const [view, setView] = useState<'dashboard' | 'profile' | 'notifications' | 'settings'>('dashboard');
-  const [notification, setNotification] = useState<string | null>(null);
   const { data, result, updateData } = useCommission({
     sales: 50000,
     goalAchievement: 100,
@@ -219,10 +218,8 @@ function App() {
           </div>
         </header>
 
-        {renderView()}
       </main>
-    </main>
-    </div >
+    </div>
   );
 }
 
