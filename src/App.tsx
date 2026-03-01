@@ -14,10 +14,10 @@ function App() {
   // Simulando um contexto de autenticação (Auth Context)
   // Em produção, esses dados viriam de uma API (ex: /api/user/profile)
   const currentUser = {
-    name: "Alessandro Meneses",
+    name: "Operador de Sistema",
     role: "STAFF_ENG_R2",
     accessLevel: "Root / System Engineer",
-    avatarInitial: "AM"
+    avatarInitial: "OP"
   };
 
   return (

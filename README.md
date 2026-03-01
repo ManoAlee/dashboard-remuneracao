@@ -75,4 +75,4 @@ O sistema foi arquitetado para ser "Plug and Play". Para conectar à sua infraes
 
 ---
 
-**Desenvolvido por Alessandro Meneses** - *Especialista em Dashboards de Alta Fidelidade.*
+**Desenvolvido para análise de performance** - *Especialista em Dashboards de Alta Fidelidade.*
